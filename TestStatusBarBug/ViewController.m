@@ -1,29 +1,29 @@
-//
-//  ViewController.m
-//  TestStatusBarBug
-//
-//  Created by Chris Vasselli on 9/16/17.
-//  Copyright © 2017 Chris Vasselli. All rights reserved.
-//
-
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () {
+    BOOL _statusBarHidden;
+}
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+-(BOOL)prefersStatusBarHidden
+{
+    return _statusBarHidden;
+}
+    
+-(UIStatusBarAnimation)preferredStatusBarUpdateAnimation
+{
+    return UIStatusBarAnimationSlide;
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)toggleStatusBar {
+    _statusBarHidden = !_statusBarHidden;
+    
+    [UIView animateWithDuration:0.35 animations:^{
+        [self setNeedsStatusBarAppearanceUpdate];
+    }];
 }
-
-
+    
 @end
